@@ -3,12 +3,14 @@
 namespace AwesIO\Repository\Eloquent;
 
 use Illuminate\Http\Request;
+use AwesIO\Repository\Scopes\Scopes;
 use Illuminate\Database\Eloquent\Model;
+use AwesIO\Repository\Contracts\ScopesInterface;
 use AwesIO\Repository\Contracts\CriteriaInterface;
 use AwesIO\Repository\Exceptions\EntityNotDefined;
 use AwesIO\Repository\Exceptions\RepositoryException;
 
-abstract class RepositoryAbstract implements CriteriaInterface
+abstract class RepositoryAbstract implements CriteriaInterface, ScopesInterface
 {
     protected $entity;
 
@@ -19,13 +21,18 @@ abstract class RepositoryAbstract implements CriteriaInterface
 
     abstract public function entity();
 
-    abstract public function scope(Request $request);
-
     public function withCriteria(array $criteria)
     {
         foreach ($criteria as $criterion) {
             $this->entity = $criterion->apply($this->entity);
         }
+        return $this;
+    }
+
+    public function scope($request)
+    {
+        $this->entity = (new Scopes($request))->scope($this->entity);
+
         return $this;
     }
 
