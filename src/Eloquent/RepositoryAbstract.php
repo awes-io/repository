@@ -2,6 +2,7 @@
 
 namespace AwesIO\Repository\Eloquent;
 
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use AwesIO\Repository\Contracts\CriteriaInterface;
 use AwesIO\Repository\Exceptions\EntityNotDefined;
@@ -17,6 +18,8 @@ abstract class RepositoryAbstract implements CriteriaInterface
     }
 
     abstract public function entity();
+
+    abstract public function scope(Request $request);
 
     public function withCriteria(array $criteria)
     {
