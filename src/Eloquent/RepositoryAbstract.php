@@ -7,7 +7,7 @@ use AwesIO\Repository\Contracts\CriteriaInterface;
 use AwesIO\Repository\Exceptions\EntityNotDefined;
 use AwesIO\Repository\Exceptions\RepositoryException;
 
-class RepositoryAbstract implements CriteriaInterface
+abstract class RepositoryAbstract implements CriteriaInterface
 {
     protected $entity;
 
@@ -16,12 +16,19 @@ class RepositoryAbstract implements CriteriaInterface
         $this->entity = $this->resolveEntity();
     }
 
+    abstract public function entity();
+
     public function withCriteria(array $criteria)
     {
         foreach ($criteria as $criterion) {
             $this->entity = $criterion->apply($this->entity);
         }
         return $this;
+    }
+
+    public function reset()
+    {
+        $this->entity = $this->resolveEntity();
     }
 
     protected function resolveEntity()
