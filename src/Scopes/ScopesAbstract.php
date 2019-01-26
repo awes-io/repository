@@ -18,7 +18,7 @@ class ScopesAbstract
         $scopes = $this->getScopes();
 
         foreach ($scopes as $scope => $value) {
-            $builder = $this->resolveScope($scope)->scope($builder, $value);
+            $builder = $this->resolveScope($scope)->scope($builder, $value, $scope);
         }
         return $builder;
     }

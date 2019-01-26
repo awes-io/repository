@@ -4,7 +4,7 @@ namespace AwesIO\Repository\Scopes;
 
 abstract class ScopeAbstract
 {
-    abstract public function scope($builder, $value);
+    abstract public function scope($builder, $value, $scope);
 
     public function mappings()
     {
