@@ -4,6 +4,7 @@ namespace AwesIO\Repository\Eloquent;
 
 use AwesIO\Repository\Contracts\RepositoryInterface;
 use AwesIO\Repository\Criteria\With;
+use AwesIO\Repository\Criteria\FindWhere;
 
 abstract class BaseRepository extends RepositoryAbstract implements RepositoryInterface
 {    
@@ -50,5 +51,20 @@ abstract class BaseRepository extends RepositoryAbstract implements RepositoryIn
         $this->reset();
 
         return $results;
+    }
+
+    /**
+     * Add basic where clauses and execute the query.
+     *
+     * @param array $conditions
+     * @param array $columns
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findWhere(array $conditions, array $columns = ['*'])
+    {
+        return $this->withCriteria([
+            new FindWhere($conditions)
+        ])->get($columns);
     }
 }
