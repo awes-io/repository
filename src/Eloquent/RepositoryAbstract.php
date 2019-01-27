@@ -14,6 +14,8 @@ abstract class RepositoryAbstract implements CriteriaInterface, ScopesInterface
 {
     protected $entity;
 
+    protected $searchable = [];
+
     public function __construct()
     {
         $this->entity = $this->resolveEntity();
@@ -31,7 +33,7 @@ abstract class RepositoryAbstract implements CriteriaInterface, ScopesInterface
 
     public function scope($request)
     {
-        $this->entity = (new Scopes($request))->scope($this->entity);
+        $this->entity = (new Scopes($request, $this->searchable))->scope($this->entity);
 
         return $this;
     }
