@@ -1,6 +1,8 @@
 <?php
 
-namespace AwesIO\Repository\Scopes;
+namespace AwesIO\Repository\Scopes\Clauses;
+
+use AwesIO\Repository\Scopes\ScopeAbstract;
 
 class OrderByScope extends ScopeAbstract
 {

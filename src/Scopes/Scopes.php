@@ -25,6 +25,7 @@ class Scopes extends ScopesAbstract
     protected function mappings($key)
     {
         $mappings = [
+            'or' => OrWhereScope::class,
             'like' => WhereLikeScope::class,
         ];
 
