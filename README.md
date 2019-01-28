@@ -21,13 +21,85 @@ The package will automatically register itself.
 
 ## Usage
 
+### Create a Model
+
+Create your model normally:
+
 ```php
-use AwesIO\Repository\Facades\Repository;
+namespace App;
 
-Repository::lowerStr('Some String'); // 'some string'
+use Illuminate\Database\Eloquent\Model;
 
-Repository::count(); // 1
+class News extends Model 
+{
+    ...
+}
 ```
+
+### Create a Repository
+
+```php
+namespace App;
+
+use AwesIO\Repository\Eloquent\BaseRepository;
+
+class NewsRepository extends BaseRepository
+{
+    public function entity()
+    {
+        return News::class;
+    }
+}
+```
+
+### Use
+
+```php
+use App\NewsRepository;
+
+class NewsController extends BaseController {
+
+    protected $news;
+
+    public function __construct(NewsRepository $news){
+        $this->news = $news;
+    }
+
+    ....
+}
+```
+
+Execute the query as a "select" statement or get all results:
+
+```php
+$news = $this->news->get();
+```
+
+Execute the query and get the first result:
+
+```php
+$news = $this->news->first();
+```
+
+Find a model by its primary key:
+
+```php
+$news = $this->news->find(1);
+```
+
+Add basic where clauses and execute the query:
+
+```php
+$news = $this->news->->findWhere([
+        // where id equals 1
+        'id' => '1',
+        // other where operations
+        ['news_category_id', '<', '3'],
+        ...
+    ]);
+```
+
+### Create a Criteria
 
 ## Testing
 
