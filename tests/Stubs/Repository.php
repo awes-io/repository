@@ -6,9 +6,7 @@ use AwesIO\Repository\Eloquent\BaseRepository;
 
 class Repository extends BaseRepository
 {
-    protected $searchable = [
-        // 'field',
-    ];
+    public $searchable = [];
 
     public function entity()
     {

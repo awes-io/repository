@@ -3,9 +3,11 @@
 namespace AwesIO\Repository\Tests\Unit;
 
 use AwesIO\Repository\Tests\TestCase;
+use Illuminate\Support\Facades\Request;
 use AwesIO\Repository\Tests\Stubs\Model;
-use AwesIO\Repository\Tests\Stubs\Repository;
+use AwesIO\Repository\Criteria\FindWhere;
 use Illuminate\Database\Eloquent\Collection;
+use AwesIO\Repository\Tests\Stubs\Repository;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 
 class RepositoryTest extends TestCase
@@ -84,5 +86,45 @@ class RepositoryTest extends TestCase
         $this->assertEquals($model1->id, $results1->first()->id);
 
         $this->assertEquals($model2->id, $results2->first()->id);
+    }
+
+    /** @test */
+    public function it_uses_criteria()
+    {
+        $model = factory(Model::class)->create();
+        
+        $repository = new Repository;
+
+        $results = $repository->withCriteria([
+            new FindWhere([
+                'name' => $model->name
+            ])
+        ])->get();
+
+        $this->assertEquals($model->id, $results->first()->id);
+    }
+
+    /** @test */
+    public function it_scopes_request()
+    {
+        $model1 = factory(Model::class)->create();
+
+        $model2 = factory(Model::class)->create();
+        
+        $repository = new Repository;
+
+        $repository->searchable = [
+            'name',
+        ];
+
+        $request = Request::create(
+            '/',
+            'GET',
+            ['name' => $model2->name]
+        );
+
+        $results = $repository->scope($request)->get();
+
+        $this->assertEquals($model2->id, $results->first()->id);
     }
 }
