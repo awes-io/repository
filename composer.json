@@ -11,9 +11,9 @@
 			"role": "Owner"
 		},
 		{
-			"name": ":author_name",
-			"email": ":author_email",
-			"homepage": ":author_homepage"
+			"name": "Galymzhan Begimov",
+			"email": "begimov@gmail.com",
+			"homepage": "https://github.com/begimov"
 		}
 	],
 	"support": {
@@ -41,7 +41,7 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit --colors=always"
+        "test": "vendor/bin/phpunit --colors=always --configuration phpunit.xml.dist --debug"
     },
     "extra": {
         "laravel": {
