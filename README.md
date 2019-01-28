@@ -23,7 +23,7 @@ The package will automatically register itself.
 
 ### Create a Model
 
-Create your model normally:
+Create your model:
 
 ```php
 namespace App;
@@ -37,6 +37,8 @@ class News extends Model
 ```
 
 ### Create a Repository
+
+Extend it from AwesIO\Repository\Eloquent\BaseRepository and provide entity() method to return full model class name:
 
 ```php
 namespace App;
@@ -57,14 +59,14 @@ class NewsRepository extends BaseRepository
 ```php
 use App\NewsRepository;
 
-class NewsController extends BaseController {
-
+class NewsController extends BaseController 
+{
     protected $news;
 
-    public function __construct(NewsRepository $news){
+    public function __construct(NewsRepository $news)
+    {
         $this->news = $news;
     }
-
     ....
 }
 ```
@@ -93,13 +95,62 @@ Add basic where clauses and execute the query:
 $news = $this->news->->findWhere([
         // where id equals 1
         'id' => '1',
-        // other where operations
+        // other "where" operations
         ['news_category_id', '<', '3'],
         ...
     ]);
 ```
 
 ### Create a Criteria
+
+Criteria are a way to build up specific query conditions.
+
+```php
+use AwesIO\Repository\Contracts\CriterionInterface;
+
+class MyCriteria implements CriterionInterface {
+
+    protected $conditions;
+    
+    public function __construct(array $conditions)
+    {
+        $this->conditions = $conditions;
+    }
+
+    public function apply($entity)
+    {
+        foreach ($this->conditions as $field => $value) {
+            $entity = $entity->where($field, '=', $value);
+        }
+        return $entity;
+    }
+}
+```
+
+Multiple Criteria can be applied:
+
+```php
+use App\NewsRepository;
+
+class NewsController extends BaseController 
+{
+    protected $news;
+
+    public function __construct(NewsRepository $news)
+    {
+        $this->news = $news;
+    }
+
+    public function index()
+    {
+        return $this->news->withCriteria([
+            new MyCriteria([
+                'category_id' => '1', 'name' => 'Name'
+            ])
+        ])->get();
+    }
+}
+```
 
 ## Testing
 
