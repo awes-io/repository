@@ -7,7 +7,6 @@ use AwesIO\Repository\Scopes\Scopes;
 use Illuminate\Database\Eloquent\Model;
 use AwesIO\Repository\Contracts\ScopesInterface;
 use AwesIO\Repository\Contracts\CriteriaInterface;
-use AwesIO\Repository\Exceptions\EntityNotDefined;
 use AwesIO\Repository\Exceptions\RepositoryException;
 
 abstract class RepositoryAbstract implements CriteriaInterface, ScopesInterface
@@ -45,10 +44,6 @@ abstract class RepositoryAbstract implements CriteriaInterface, ScopesInterface
 
     protected function resolveEntity()
     {
-        if (!method_exists($this, 'entity')) {
-            throw new EntityNotDefined();
-        }
-
         $model = app()->make($this->entity());
 
         if (!$model instanceof Model) {
