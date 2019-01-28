@@ -146,10 +146,63 @@ class NewsController extends BaseController
         return $this->news->withCriteria([
             new MyCriteria([
                 'category_id' => '1', 'name' => 'Name'
-            ])
+            ]),
+            new WhereAdmin(),
+            ...
         ])->get();
     }
 }
+```
+
+### Scope, filter and order by request parameters.
+
+In your repository define which fields can be used to scope your queries by setting **$searchable** property.
+
+```php
+protected $searchable = [
+    // where 'title' equals parameter value
+    'title',
+    // orWhere equals
+    'body' => 'or',
+    // where like
+    'author' => 'like',
+    // orWhere like
+    'email' => 'orLike',
+];
+```
+
+Search by searchables:
+
+```php
+public function index($request)
+{
+    return $this->news->scope($request)->get();
+}
+```
+
+```
+https://example.com/news?title=Title&body=Text&author=&email=gmail
+```
+
+Also several serchables enabled by default:
+
+```php
+protected $scopes = [
+    // orderBy field
+    'orderBy' => OrderByScope::class,
+    // where created_at date is after
+    'begin' => WhereDateGreaterScope::class,
+    // where created_at date is before
+    'end' => WhereDateLessScope::class,
+];
+```
+
+```php
+$this->news->scope($request)->get();
+```
+
+```
+https://example.com/news?orderBy=email&begin=2019-01-24&end=2019-01-26
 ```
 
 ## Testing
