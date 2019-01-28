@@ -7,11 +7,15 @@ use AwesIO\Repository\Scopes\Clauses\OrderByScope;
 use AwesIO\Repository\Scopes\Clauses\OrWhereScope;
 use AwesIO\Repository\Scopes\Clauses\WhereLikeScope;
 use AwesIO\Repository\Scopes\Clauses\OrWhereLikeScope;
+use AwesIO\Repository\Scopes\Clauses\WhereDateLessScope;
+use AwesIO\Repository\Scopes\Clauses\WhereDateGreaterScope;
 
 class Scopes extends ScopesAbstract
 {
     protected $scopes = [
         'orderBy' => OrderByScope::class,
+        'begin' => WhereDateGreaterScope::class,
+        'end' => WhereDateLessScope::class,
     ];
 
     public function __construct($request, $searchable)
