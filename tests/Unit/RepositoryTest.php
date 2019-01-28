@@ -3,16 +3,24 @@
 namespace AwesIO\Repository\Tests\Unit;
 
 use AwesIO\Repository\Tests\TestCase;
+use AwesIO\Repository\Tests\Stubs\Model;
+use AwesIO\Repository\Tests\Stubs\Repository;
 
 class RepositoryTest extends TestCase
 {
     /** @test */
-    public function it_retrieved_by_slug()
+    public function it_has_model_entity()
     {
-        // $news = new News();
-        
-        // $this->assertEquals($news->getRouteKeyName(), 'slug');
+        $repository = new Repository;
 
-        $this->assertTrue(true);
+        $this->assertEquals(Model::class, $repository->entity());
+    }
+
+    /** @test */
+    public function it_gets_collection()
+    {
+        $repository = new Repository;
+
+        dd($repository->get());
     }
 }
