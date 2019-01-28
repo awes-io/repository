@@ -1,13 +1,5 @@
 # Repository
 
-
-TODO: github or gitlab badge 
-
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Total Downloads][ico-downloads]][link-downloads]
-[![Build Status][ico-travis]][link-travis]
-[![StyleCI][ico-styleci]][link-styleci]
-
 [![Coverage report](http://gitlab.awescode.com/awes-io/repository/badges/master/coverage.svg)](https://www.awes.io/)
 [![Build status](http://gitlab.awescode.com/awes-io/repository/badges/master/build.svg)](https://www.awes.io/)
 [![Composer Ready](https://www.awc.wtf/awes-io/repository/status.svg)](https://www.awes.io/)
@@ -15,7 +7,7 @@ TODO: github or gitlab badge
 [![Last version](https://www.awc.wtf/awes-io/repository/version.svg)](https://www.awes.io/) 
 
 
-This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
+PHP Repository package. Take a look at [contributing.md](contributing.md) to see a to do list.
 
 ## Installation
 
@@ -27,26 +19,7 @@ $ composer require awes-io/repository
 
 The package will automatically register itself.
 
-You can publish the migration with:
-
-```bash
-php artisan vendor:publish --provider="AwesIO\Repository\Providers\RepositoryServiceProvider" --tag="migrations"
-```
-
-After the migration has been published you can create the table for Repository by running the migrations:
-
-```bash
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --provider="AwesIO\Repository\Providers\RepositoryServiceProvider" --tag="config"
-```
-
-
-## Examples of use
+## Usage
 
 ```php
 use AwesIO\Repository\Facades\Repository;
@@ -55,20 +28,6 @@ Repository::lowerStr('Some String'); // 'some string'
 
 Repository::count(); // 1
 ```
-
-## Methods
-
-#### example()
-
-Description some example.
-
-#### count()
-
-Description some count.
-
-#### validate(string $email)
-
-Throws an `InvalidArgumentException` is email is invalid.
 
 ## Testing
 
