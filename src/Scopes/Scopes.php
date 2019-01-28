@@ -3,6 +3,7 @@
 namespace AwesIO\Repository\Scopes;
 
 use AwesIO\Repository\Scopes\Clauses\WhereScope;
+use AwesIO\Repository\Scopes\Clauses\OrderByScope;
 use AwesIO\Repository\Scopes\Clauses\OrWhereScope;
 use AwesIO\Repository\Scopes\Clauses\WhereLikeScope;
 use AwesIO\Repository\Scopes\Clauses\OrWhereLikeScope;
@@ -10,7 +11,7 @@ use AwesIO\Repository\Scopes\Clauses\OrWhereLikeScope;
 class Scopes extends ScopesAbstract
 {
     protected $scopes = [
-        // 'orderBy' => OrderByScope::class,
+        'orderBy' => OrderByScope::class,
     ];
 
     public function __construct($request, $searchable)

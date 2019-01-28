@@ -9,7 +9,7 @@ class OrderByScope extends ScopeAbstract
     public function mappings()
     {
         return [
-            'id' => 'asc',
+            // 'id' => 'asc',
         ];
     }
 
