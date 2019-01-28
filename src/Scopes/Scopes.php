@@ -2,6 +2,11 @@
 
 namespace AwesIO\Repository\Scopes;
 
+use AwesIO\Repository\Scopes\Clauses\WhereScope;
+use AwesIO\Repository\Scopes\Clauses\OrWhereScope;
+use AwesIO\Repository\Scopes\Clauses\WhereLikeScope;
+use AwesIO\Repository\Scopes\Clauses\OrWhereLikeScope;
+
 class Scopes extends ScopesAbstract
 {
     protected $scopes = [
@@ -27,6 +32,7 @@ class Scopes extends ScopesAbstract
         $mappings = [
             'or' => OrWhereScope::class,
             'like' => WhereLikeScope::class,
+            'orLike' => OrWhereLikeScope::class,
         ];
 
         return $mappings[$key] ?? WhereScope::class;
