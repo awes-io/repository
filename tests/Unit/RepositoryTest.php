@@ -9,6 +9,8 @@ use AwesIO\Repository\Criteria\FindWhere;
 use Illuminate\Database\Eloquent\Collection;
 use AwesIO\Repository\Tests\Stubs\Repository;
 use Illuminate\Database\Eloquent\Model as BaseModel;
+use AwesIO\Repository\Exceptions\RepositoryException;
+use AwesIO\Repository\Tests\Stubs\InvalidRepository;
 
 class RepositoryTest extends TestCase
 {
@@ -126,5 +128,13 @@ class RepositoryTest extends TestCase
         $results = $repository->scope($request)->get();
 
         $this->assertEquals($model2->id, $results->first()->id);
+    }
+
+    /** @test */
+    public function it_throws_exception_if_entity_doesnt_belong_to_valid_class()
+    {
+        $this->expectException(RepositoryException::class);
+
+        $repository = new InvalidRepository;
     }
 }
