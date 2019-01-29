@@ -205,6 +205,50 @@ $this->news->scope($request)->get();
 https://example.com/news?orderBy=email&begin=2019-01-24&end=2019-01-26
 ```
 
+You can also build your own custom scopes. In your repository override scope method:
+
+```php
+public function scope($request)
+{
+    // apply build-in scopes
+    parent::scope($request);
+
+    // your scopes class
+    $this->entity = (new NewsScopes($request))->scope($this->entity);
+
+    return $this;
+}
+```
+
+Create your scopes class and extend it from base ScopesAbstract one:
+
+```php
+<?php
+use AwesIO\Repository\Scopes\ScopesAbstract;
+
+class NewsScopes extends ScopesAbstract
+{
+    protected $scopes = [
+        // here you can add field-scope mappings
+        'field' => MyScope::class,
+    ];
+}
+```
+
+Now you can build any scopes you need:
+
+```php
+use AwesIO\Repository\Scopes\ScopeAbstract;
+
+class MyScope extends ScopeAbstract
+{
+    public function scope($builder, $value, $scope)
+    {
+        return $builder->where($scope, $value);
+    }
+}
+```
+
 ## Testing
 
 You can run the tests with:
