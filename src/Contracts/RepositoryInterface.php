@@ -37,4 +37,52 @@ interface RepositoryInterface
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function findWhere(array $conditions, array $columns = ['*']);
+
+    /**
+     * Paginate the given query.
+     *
+     * @param  int  $perPage
+     * @param  array  $columns
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function paginate($perPage = null, $columns = ['*']);
+
+    /**
+     * Paginate the given query into a simple paginator.
+     *
+     * @param  int  $perPage
+     * @param  array  $columns
+     * @return \Illuminate\Contracts\Pagination\Paginator
+     */
+    public function simplePaginate($perPage = null, $columns = ['*']);
+
+     /**
+     * Save a new model and return the instance.
+     *
+     * @param array $attributes
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function create(array $attributes);
+
+    /**
+     * Update a record.
+     *
+     * @param  array  $values
+     * @param  int  $id
+     * 
+     * @return int
+     */
+    public function update(array $values, $id, $attribute = "id");
+
+    /**
+     * Delete a record.
+     * 
+     * @param  int  $id
+     * 
+     * @return mixed
+     */
+    public function delete($id);
 }
