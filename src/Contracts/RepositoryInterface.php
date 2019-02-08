@@ -78,11 +78,11 @@ interface RepositoryInterface
     public function update(array $values, $id, $attribute = "id");
 
     /**
-     * Delete a record.
+     * Delete a record by id.
      * 
      * @param  int  $id
      * 
      * @return mixed
      */
-    public function delete($id);
+    public function destroy($id);
 }

@@ -67,4 +67,87 @@ abstract class BaseRepository extends RepositoryAbstract implements RepositoryIn
             new FindWhere($conditions)
         ])->get($columns);
     }
+
+    /**
+     * Paginate the given query.
+     *
+     * @param  int  $perPage
+     * @param  array  $columns
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function paginate($perPage = null, $columns = ['*'])
+    {
+        $results = $this->entity->paginate($perPage, $columns);
+
+        $this->reset();
+
+        return $results;
+    }
+
+    /**
+     * Paginate the given query into a simple paginator.
+     *
+     * @param  int  $perPage
+     * @param  array  $columns
+     * @return \Illuminate\Contracts\Pagination\Paginator
+     */
+    public function simplePaginate($perPage = null, $columns = ['*'])
+    {
+        $results = $this->entity->simplePaginate($perPage, $columns);
+
+        $this->reset();
+
+        return $results;
+    }
+
+     /**
+     * Save a new model and return the instance.
+     *
+     * @param array $attributes
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function create(array $attributes)
+    {
+        $results = $this->entity->create($attributes);
+
+        $this->reset();
+
+        return $results;
+    }
+
+    /**
+     * Update a record.
+     *
+     * @param  array  $values
+     * @param  int  $id
+     * 
+     * @return int
+     */
+    public function update(array $values, $id, $attribute = "id")
+    {
+        $results = $this->entity->where($attribute, $id)->update($values);
+
+        $this->reset();
+
+        return $results;
+    }
+
+    /**
+     * Delete a record by id.
+     * 
+     * @param  int  $id
+     * 
+     * @return mixed
+     */
+    public function destroy($id)
+    {
+        $results = $this->entity->destroy($id);
+
+        $this->reset();
+
+        return $results;
+    }
 }

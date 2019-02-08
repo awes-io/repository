@@ -8,9 +8,11 @@ use AwesIO\Repository\Tests\Stubs\Model;
 use AwesIO\Repository\Criteria\FindWhere;
 use Illuminate\Database\Eloquent\Collection;
 use AwesIO\Repository\Tests\Stubs\Repository;
+use Illuminate\Contracts\Pagination\Paginator;
+use AwesIO\Repository\Tests\Stubs\InvalidRepository;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use AwesIO\Repository\Exceptions\RepositoryException;
-use AwesIO\Repository\Tests\Stubs\InvalidRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class RepositoryTest extends TestCase
 {
@@ -136,5 +138,73 @@ class RepositoryTest extends TestCase
         $this->expectException(RepositoryException::class);
 
         $repository = new InvalidRepository;
+    }
+
+    /** @test */
+    public function it_paginates()
+    {
+        $model = factory(Model::class, 10)->create();
+        
+        $repository = new Repository;
+
+        $this->assertInstanceOf(LengthAwarePaginator::class, $results = $repository->paginate());
+    }
+
+    /** @test */
+    public function it_simple_paginates()
+    {
+        $model = factory(Model::class, 10)->create();
+        
+        $repository = new Repository;
+
+        $this->assertInstanceOf(Paginator::class, $results = $repository->simplePaginate());
+    }
+
+    /** @test */
+    public function it_creates_new_record()
+    {
+        $model = factory(Model::class)->make();
+        
+        $repository = new Repository;
+
+        $results = $repository->create($model->getAttributes());
+
+        $this->assertDatabaseHas('models', [
+            'name' => $model->name
+        ]);
+    }
+
+    /** @test */
+    public function it_updates_existing_record()
+    {
+        $model = factory(Model::class)->create();
+        
+        $repository = new Repository;
+
+        $results = $repository->update([
+            'name' => $name = uniqid()
+        ], $model->id);
+
+        $this->assertDatabaseHas('models', [
+            'name' => $name
+        ]);
+    }
+
+    /** @test */
+    public function it_destroys_existing_record_by_id()
+    {
+        $model = factory(Model::class)->create();
+
+        $this->assertDatabaseHas('models', [
+            'name' => $model->name
+        ]);
+        
+        $repository = new Repository;
+
+        $results = $repository->destroy($model->id);
+
+        $this->assertDatabaseMissing('models', [
+            'name' => $model->name
+        ]);
     }
 }
