@@ -54,7 +54,7 @@ class NewsRepository extends BaseRepository
 }
 ```
 
-### Use
+### Usage
 
 ```php
 use App\NewsRepository;
@@ -99,6 +99,36 @@ $news = $this->news->->findWhere([
         ['news_category_id', '<', '3'],
         ...
     ]);
+```
+
+Paginate the given query:
+
+```php
+$news = $this->news->paginate(15);
+```
+
+Paginate the given query into a simple paginator:
+
+```php
+$news = $this->news->simplePaginate(15);
+```
+
+Save a new model and return the instance:
+
+```php
+$news = $this->news->create($request->all());
+```
+
+Update a record:
+
+```php
+$this->news->update($request->all(), $id);
+```
+
+Delete a record by id:
+
+```php
+$this->news->destroy($id);
 ```
 
 ### Create a Criteria
