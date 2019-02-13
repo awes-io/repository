@@ -150,4 +150,30 @@ abstract class BaseRepository extends RepositoryAbstract implements RepositoryIn
 
         return $results;
     }
+
+    /**
+     * Attach models to the parent.
+     *
+     * @param  int  $id
+     * @param  string  $relation
+     * @param  mixed   $ids
+     * @return void
+     */
+    public function attach($id, $relation, $ids)
+    {
+        return $this->find($id)->{$relation}()->attach($ids);
+    }
+
+    /**
+     * Detach models from the relationship.
+     *
+     * @param  int  $id
+     * @param  string  $relation
+     * @param  mixed   $ids
+     * @return int
+     */
+    public function detach($id, $relation, $ids)
+    {
+        return $this->find($id)->{$relation}()->detach($ids);
+    }
 }

@@ -131,6 +131,18 @@ Delete a record by id:
 $this->news->destroy($id);
 ```
 
+Attach models to the parent:
+
+```php
+$this->news->attach($parentId, $relationship, $idsToAttach);
+```
+
+Detach models from the relationship:
+
+```php
+$this->news->detach($parentId, $relationship, $idsToDetach);
+```
+
 ### Create a Criteria
 
 Criteria are a way to build up specific query conditions.
