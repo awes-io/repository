@@ -136,6 +136,12 @@ Detach models from the relationship:
 $this->news->detach($parentId, $relationship, $idsToDetach);
 ```
 
+Find model or throw an exception if not found:
+
+```php
+$this->news->findOrFail($id);
+```
+
 ### Create a Criteria
 
 Criteria are a way to build up specific query conditions.
