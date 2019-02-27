@@ -266,4 +266,67 @@ class RepositoryTest extends TestCase
 
         $repository->findOrFail($model->id + 1);
     }
+
+    /** @test */
+    public function it_can_smart_paginate()
+    {
+        $model = factory(Model::class, 20)->create();
+        
+        $repository = new Repository;
+
+        $result = $repository->smartPaginate();
+
+        $this->assertInstanceOf(LengthAwarePaginator::class, $result);
+    }
+
+    /** @test */
+    public function it_can_smart_paginate_by_default_limit()
+    {
+        $model = factory(Model::class, 20)->create();
+        
+        $repository = new Repository;
+
+        $result = $repository->smartPaginate();
+
+        $this->assertEquals(
+            config('awesio-repository.smart_paginate.default_limit'), 
+            $result->perPage()
+        );
+    }
+
+    /** @test */
+    public function it_can_smart_paginate_by_limit_parameter_if_its_less_or_equals_max_limit()
+    {
+        $model = factory(Model::class, 20)->create();
+        
+        $repository = new Repository;
+
+        request()->merge([
+            config('awesio-repository.smart_paginate.request_parameter') => $limit = random_int(
+                1, config('awesio-repository.smart_paginate.max_limit')
+            )
+        ]);
+
+        $result = $repository->smartPaginate();
+
+        $this->assertEquals($limit, $result->perPage());
+    }
+
+    /** @test */
+    public function it_can_smart_paginate_by_max_limit()
+    {
+        $model = factory(Model::class, 20)->create();
+        
+        $repository = new Repository;
+
+        request()->merge([
+            config('awesio-repository.smart_paginate.request_parameter') => $limit = random_int(
+                $max = config('awesio-repository.smart_paginate.max_limit'), $max + 1000
+            )
+        ]);
+
+        $result = $repository->smartPaginate();
+
+        $this->assertEquals($max, $result->perPage());
+    }
 }

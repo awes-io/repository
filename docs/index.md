@@ -12,6 +12,26 @@ $ composer require awes-io/repository
 
 The package will automatically register itself.
 
+## Configuration
+
+First publish config:
+
+```bash
+php artisan vendor:publish --provider="AwesIO\Repository\RepositoryServiceProvider" --tag="config"
+```
+
+```php
+// $repository->smartPaginate() related parameters
+'smart_paginate' => [
+    // name of request parameter to take paginate by value from
+    'request_parameter' => 'limit',
+    // default paginate by value
+    'default_limit' => 10,
+    // max paginate by value
+    'max_limit' => 100,
+]
+```
+
 ## Usage
 
 ### Create a Model
@@ -104,6 +124,12 @@ Paginate the given query into a simple paginator:
 
 ```php
 $news = $this->news->simplePaginate(15);
+```
+
+Paginate the given query by 'limit' request parameter:
+
+```php
+$news = $this->news->smartPaginate();
 ```
 
 Save a new model and return the instance:

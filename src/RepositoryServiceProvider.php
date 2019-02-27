@@ -15,9 +15,9 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $this->publishes([
-        //     __DIR__.'/../config/repository.php' => config_path('repository.php'),
-        // ], 'config');
+        $this->publishes([
+            __DIR__.'/../config/awesio-repository.php' => config_path('awesio-repository.php'),
+        ], 'config');
     }
 
     /**
@@ -27,7 +27,6 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // $this->app->bind(RepositoryContract::class, Repository::class);
-        // $this->app->singleton('repository', RepositoryContract::class);
+        $this->mergeConfigFrom(__DIR__.'/../config/awesio-repository.php', 'awesio-repository');
     }
 }

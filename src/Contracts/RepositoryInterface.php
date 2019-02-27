@@ -116,4 +116,10 @@ interface RepositoryInterface
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function findOrFail($id, $columns = ['*']);
+
+    /**
+     * Paginate the given query by 'limit' request parameter
+     * @return mixed
+     */
+    public function smartPaginate();
 }

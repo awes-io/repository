@@ -194,4 +194,22 @@ abstract class BaseRepository extends RepositoryAbstract implements RepositoryIn
 
         return $results;
     }
+
+    /**
+     * Paginate the given query by 'limit' request parameter
+     * @return mixed
+     */
+    public function smartPaginate()
+    {
+        $limit = request()->input(
+            config('awesio-repository.smart_paginate.request_parameter'), 
+            config('awesio-repository.smart_paginate.default_limit')
+        );
+
+        $maxLimit = config('awesio-repository.smart_paginate.max_limit');
+
+        $limit = ($limit <= $maxLimit) ? $limit : $maxLimit;
+
+        return $this->paginate($limit);
+    }
 }
