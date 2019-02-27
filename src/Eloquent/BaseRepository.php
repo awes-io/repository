@@ -128,7 +128,9 @@ abstract class BaseRepository extends RepositoryAbstract implements RepositoryIn
      */
     public function update(array $values, $id, $attribute = "id")
     {
-        $results = $this->entity->where($attribute, $id)->update($values);
+        $model = $this->entity->where($attribute, $id)->firstOrFail();
+
+        $results = $model->update($values);
 
         $this->reset();
 
