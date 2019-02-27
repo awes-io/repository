@@ -12,6 +12,7 @@ use Illuminate\Contracts\Pagination\Paginator;
 use AwesIO\Repository\Tests\Stubs\InvalidRepository;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use AwesIO\Repository\Exceptions\RepositoryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class RepositoryTest extends TestCase
@@ -206,5 +207,21 @@ class RepositoryTest extends TestCase
         $this->assertDatabaseMissing('models', [
             'name' => $model->name
         ]);
+    }
+
+    /** @test */
+    public function it_finds_or_fails()
+    {
+        $model = factory(Model::class)->create();
+        
+        $repository = new Repository;
+
+        $result = $repository->findOrFail($model->id);
+
+        $this->assertEquals($model->name, $result->name);
+
+        $this->expectException(ModelNotFoundException::class);
+
+        $repository->findOrFail($model->id + 1);
     }
 }

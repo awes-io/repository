@@ -85,4 +85,35 @@ interface RepositoryInterface
      * @return mixed
      */
     public function destroy($id);
+
+    /**
+     * Attach models to the parent.
+     *
+     * @param  int  $id
+     * @param  string  $relation
+     * @param  mixed   $ids
+     * @return void
+     */
+    public function attach($id, $relation, $ids);
+
+    /**
+     * Detach models from the relationship.
+     *
+     * @param  int  $id
+     * @param  string  $relation
+     * @param  mixed   $ids
+     * @return int
+     */
+    public function detach($id, $relation, $ids);
+
+    /**
+     * Find a model by its primary key or throw an exception.
+     *
+     * @param  mixed  $id
+     * @param  array  $columns
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static|static[]
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function findOrFail($id, $columns = ['*']);
 }
