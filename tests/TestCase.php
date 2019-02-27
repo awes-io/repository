@@ -53,5 +53,17 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $table->string('name');
             $table->timestamps();
         });
+
+        $builder->create('submodels', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });
+
+        $builder->create('model_submodel', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('model_id');
+            $table->integer('submodel_id');
+        });
     }
 }

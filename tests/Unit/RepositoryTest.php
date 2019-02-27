@@ -6,6 +6,7 @@ use AwesIO\Repository\Tests\TestCase;
 use Illuminate\Support\Facades\Request;
 use AwesIO\Repository\Tests\Stubs\Model;
 use AwesIO\Repository\Criteria\FindWhere;
+use AwesIO\Repository\Tests\Stubs\Submodel;
 use Illuminate\Database\Eloquent\Collection;
 use AwesIO\Repository\Tests\Stubs\Repository;
 use Illuminate\Contracts\Pagination\Paginator;
@@ -206,6 +207,47 @@ class RepositoryTest extends TestCase
 
         $this->assertDatabaseMissing('models', [
             'name' => $model->name
+        ]);
+    }
+
+    /** @test */
+    public function it_attaches_model_to_parent()
+    {
+        $model = factory(Model::class)->create();
+
+        $submodel = factory(Submodel::class)->create();
+        
+        $repository = new Repository;
+
+        $repository->attach($model->id, 'submodels', $submodel->id);
+
+        $this->assertDatabaseHas('model_submodel', [
+            'model_id' => $model->id,
+            'submodel_id' => $submodel->id
+        ]);
+    }
+
+    /** @test */
+    public function it_detaches_model_from_parent()
+    {
+        $model = factory(Model::class)->create();
+
+        $submodel = factory(Submodel::class)->create();
+        
+        $repository = new Repository;
+
+        $repository->attach($model->id, 'submodels', $submodel->id);
+
+        $this->assertDatabaseHas('model_submodel', [
+            'model_id' => $model->id,
+            'submodel_id' => $submodel->id
+        ]);
+
+        $repository->detach($model->id, 'submodels', $submodel->id);
+
+        $this->assertDatabaseMissing('model_submodel', [
+            'model_id' => $model->id,
+            'submodel_id' => $submodel->id
         ]);
     }
 
