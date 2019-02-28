@@ -12,5 +12,10 @@ class Model extends BaseModel
     public function submodels()
     {
         return $this->belongsToMany(Submodel::class);
+    
+    }
+    public function scopeName($query, $name)
+    {
+        return $query->where('name', $name);
     }
 }

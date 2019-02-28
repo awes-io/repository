@@ -40,6 +40,18 @@ abstract class RepositoryAbstract implements CriteriaInterface, ScopesInterface
     public function reset()
     {
         $this->entity = $this->resolveEntity();
+    
+    }
+
+    public function __call($method, $parameters)
+    {
+        if (method_exists($this->entity, 'scope' . ucfirst($method))) {
+
+            $this->entity = $this->entity->{$method}(...$parameters);
+            
+            return $this;
+        }
+        return call_user_func_array([$this->entity, $method], $parameters);
     }
 
     protected function resolveEntity()

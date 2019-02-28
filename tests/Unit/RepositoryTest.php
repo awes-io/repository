@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model as BaseModel;
 use AwesIO\Repository\Exceptions\RepositoryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class RepositoryTest extends TestCase
 {
@@ -328,5 +329,31 @@ class RepositoryTest extends TestCase
         $result = $repository->smartPaginate();
 
         $this->assertEquals($max, $result->perPage());
+    }
+
+    /** @test */
+    public function it_executes_model_scopes()
+    {
+        $model = factory(Model::class)->create([
+            'name' => $name = uniqid()
+        ]);
+        
+        $repository = new Repository;
+
+        $result = $repository->name($name)->get();
+
+        $this->assertEquals($name, $result->first()->name);
+    }
+
+    /** @test */
+    public function it_executes_model_methods()
+    {
+        $model = factory(Model::class)->create();
+        
+        $repository = new Repository;
+
+        $result = $repository->submodels();
+
+        $this->assertInstanceOf(BelongsToMany::class, $result);
     }
 }
