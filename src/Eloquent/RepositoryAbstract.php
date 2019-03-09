@@ -51,7 +51,9 @@ abstract class RepositoryAbstract implements CriteriaInterface, ScopesInterface
             
             return $this;
         }
-        return call_user_func_array([$this->entity, $method], $parameters);
+        $this->entity = call_user_func_array([$this->entity, $method], $parameters);
+
+        return $this;
     }
 
     protected function resolveEntity()
