@@ -354,6 +354,22 @@ class RepositoryTest extends TestCase
 
         $result = $repository->submodels();
 
-        $this->assertInstanceOf(BelongsToMany::class, $result);
+        $this->assertInstanceOf(Repository::class, $result);
+    }
+
+    /** @test */
+    public function it_orders_by()
+    {
+        factory(Model::class, 5)->create();
+
+        $repository = new Repository;
+
+        $results = $repository->get();
+
+        $this->assertEquals(1, $results->first()->id);
+
+        $results = $repository->orderBy('id', 'desc')->get();
+
+        $this->assertEquals(5, $results->first()->id);
     }
 }

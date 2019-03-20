@@ -132,6 +132,12 @@ Paginate the given query by 'limit' request parameter:
 $news = $this->news->smartPaginate();
 ```
 
+Add an "order by" clause to the query:
+
+```php
+$news = $this->news->orderBy('title', 'desc')->get();
+```
+
 Save a new model and return the instance:
 
 ```php
@@ -269,8 +275,10 @@ $this->news->scope($request)->get();
 ```
 
 ```
-https://example.com/news?orderBy=email&begin=2019-01-24&end=2019-01-26
+https://example.com/news?orderBy=email_desc&begin=2019-01-24&end=2019-01-26
 ```
+
+**orderBy=email_desc** will order by email in descending order, **orderBy=email** - in ascending
 
 You can also build your own custom scopes. In your repository override **scope()** method:
 

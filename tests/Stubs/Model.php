@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model as BaseModel;
 
 class Model extends BaseModel
 {
+    public $orderable = ['id'];
+
     protected $fillable = ['name'];
 
     public function submodels()

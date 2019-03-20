@@ -15,7 +15,7 @@ class ScopesTest extends TestCase
         $request = Request::create(
             '/',
             'GET',
-            ['orderBy' => 'id']
+            ['orderBy' => 'id_desc']
         );
 
         $scopes = new Scopes($request, []);

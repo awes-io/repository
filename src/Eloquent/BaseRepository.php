@@ -214,4 +214,18 @@ abstract class BaseRepository extends RepositoryAbstract implements RepositoryIn
 
         return $this->paginate($limit);
     }
+
+    /**
+     * Add an "order by" clause to the query.
+     *
+     * @param  string  $column
+     * @param  string  $direction
+     * @return $this
+     */
+    public function orderBy($column, $direction = 'asc')
+    {
+        $this->entity = $this->entity->orderBy($column, $direction);
+
+        return $this;
+    }
 }

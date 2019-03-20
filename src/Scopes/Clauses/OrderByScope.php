@@ -6,21 +6,21 @@ use AwesIO\Repository\Scopes\ScopeAbstract;
 
 class OrderByScope extends ScopeAbstract
 {
-    public function mappings()
-    {
-        return [
-            // 'id' => 'asc',
-        ];
-    }
-
     public function scope($builder, $value, $scope)
     {
-        $field = $value;
+        $arr = explode('_', $value);
 
-        $value = $this->resolveScopeValue($value);
+        $orderable = $builder->orderable ?? [];
 
-        return is_null($value) 
-            ? $builder->orderBy($field, 'desc') 
-            : $builder->orderBy($field, $value);
+        if (array_pop($arr) == 'desc' 
+            && in_array($field = implode('_', $arr), $orderable)) {
+
+            return $builder->orderBy($field, 'desc');
+
+        } elseif (in_array($value, $orderable)) {
+
+            return $builder->orderBy($value, 'asc');
+        }
+        return $builder;
     }
 }
