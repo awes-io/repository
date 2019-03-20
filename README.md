@@ -281,6 +281,12 @@ protected $scopes = [
 $this->news->scope($request)->get();
 ```
 
+Enable ordering for specific fields by adding **$orderable** property to your model class:
+
+```php
+public $orderable = ['email'];
+```
+
 ```
 https://example.com/news?orderBy=email_desc&begin=2019-01-24&end=2019-01-26
 ```
