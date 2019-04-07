@@ -270,21 +270,19 @@ class RepositoryTest extends TestCase
     }
 
     /** @test */
-    public function it_finds_or_fails_and_returns_respository_instance()
+    public function it_finds_and_returns_respository_instance_or_fails()
     {
-        $model = factory(Model::class)->create();
-        
+        $model = factory(Model::class, 20)->create();
+
         $repository = new Repository;
 
-        $result = $repository->findOrFailRepo($model->id);
+        $result = $repository->findOrFailRepo($model->first()->id);
 
         $this->assertInstanceOf(RepositoryInterface::class, $result);
 
-        $this->assertEquals($model->name, $result->get()->first()->name);
-
         $this->expectException(ModelNotFoundException::class);
 
-        $repository->findOrFail($model->id + 1);
+        $repository->findOrFailRepo(22);
     }
 
     /** @test */
