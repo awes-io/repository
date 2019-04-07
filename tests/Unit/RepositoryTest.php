@@ -16,6 +16,7 @@ use AwesIO\Repository\Exceptions\RepositoryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use AwesIO\Repository\Contracts\RepositoryInterface;
 
 class RepositoryTest extends TestCase
 {
@@ -269,6 +270,24 @@ class RepositoryTest extends TestCase
     }
 
     /** @test */
+    public function it_finds_or_fails_and_returns_respository_instance()
+    {
+        $model = factory(Model::class)->create();
+        
+        $repository = new Repository;
+
+        $result = $repository->findOrFailRepo($model->id);
+
+        $this->assertInstanceOf(RepositoryInterface::class, $result);
+
+        $this->assertEquals($model->name, $result->get()->first()->name);
+
+        $this->expectException(ModelNotFoundException::class);
+
+        $repository->findOrFail($model->id + 1);
+    }
+
+    /** @test */
     public function it_can_smart_paginate()
     {
         $model = factory(Model::class, 20)->create();
@@ -329,6 +348,22 @@ class RepositoryTest extends TestCase
         $result = $repository->smartPaginate();
 
         $this->assertEquals($max, $result->perPage());
+    }
+
+    /** @test */
+    public function it_can_smart_paginate_if_request_parametert_is_string()
+    {
+        $model = factory(Model::class, 20)->create();
+        
+        $repository = new Repository;
+
+        request()->merge([
+            config('awesio-repository.smart_paginate.request_parameter') => uniqid()
+        ]);
+
+        $result = $repository->smartPaginate();
+
+        $this->assertEquals(5, $result->perPage());
     }
 
     /** @test */

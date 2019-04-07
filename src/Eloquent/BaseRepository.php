@@ -198,12 +198,28 @@ abstract class BaseRepository extends RepositoryAbstract implements RepositoryIn
     }
 
     /**
+     * Find a model by its primary key or throw an exception and return repository instance.
+     *
+     * @param  mixed  $id
+     * @param  array  $columns
+     * @return \AwesIO\Repository\Contracts\RepositoryInterface
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function findOrFailRepo($id, $columns = ['*'])
+    {
+        $this->entity = $this->entity->findOrFail($id, $columns);
+
+        return $this;
+    }
+
+    /**
      * Paginate the given query by 'limit' request parameter
      * @return mixed
      */
     public function smartPaginate()
     {
-        $limit = request()->input(
+        $limit = (int) request()->input(
             config('awesio-repository.smart_paginate.request_parameter'), 
             config('awesio-repository.smart_paginate.default_limit')
         );
