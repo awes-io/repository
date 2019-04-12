@@ -56,6 +56,11 @@ abstract class RepositoryAbstract implements CriteriaInterface, ScopesInterface
         return $this;
     }
 
+    public function __get($name)
+    {
+        return $this->entity->{$name};
+    }
+
     protected function resolveEntity()
     {
         $model = app()->make($this->entity());

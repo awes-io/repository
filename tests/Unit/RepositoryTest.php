@@ -391,6 +391,24 @@ class RepositoryTest extends TestCase
     }
 
     /** @test */
+    public function it_returns_model_props()
+    {
+        $model = factory(Model::class)->create();
+
+        $model->submodels()->save(
+            $submodel = factory(Submodel::class)->create()
+        );
+        
+        $repository = new Repository;
+
+        $result = $repository->findOrFailRepo($model->id)->submodels;
+
+        $this->assertInstanceOf(Submodel::class, $result->first());
+
+        $this->assertEquals($submodel->name, $result->first()->name);
+    }
+
+    /** @test */
     public function it_orders_by()
     {
         factory(Model::class, 5)->create();
