@@ -286,6 +286,24 @@ class RepositoryTest extends TestCase
     }
 
     /** @test */
+    public function it_finds_first_or_fails()
+    {
+        $model = factory(Model::class)->create();
+        
+        $repository = new Repository;
+
+        $result = $repository->where('id', $model->id)->firstOrFail();
+
+        $this->assertInstanceOf(Model::class, $result);
+
+        $this->assertEquals($model->name, $result->name);
+
+        $this->expectException(ModelNotFoundException::class);
+
+        $repository->where('id', $model->id + 1)->firstOrFail();
+    }
+
+    /** @test */
     public function it_can_smart_paginate()
     {
         $model = factory(Model::class, 20)->create();

@@ -118,6 +118,27 @@ interface RepositoryInterface
     public function findOrFail($id, $columns = ['*']);
 
     /**
+     * Find a model by its primary key or throw an exception and return repository instance.
+     *
+     * @param  mixed  $id
+     * @param  array  $columns
+     * @return \AwesIO\Repository\Contracts\RepositoryInterface
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function findOrFailRepo($id, $columns = ['*']);
+
+    /**
+     * Execute the query and get the first result or throw an exception.
+     *
+     * @param  array  $columns
+     * @return \Illuminate\Database\Eloquent\Model|static
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function firstOrFail($columns = ['*']);
+
+    /**
      * Paginate the given query by 'limit' request parameter
      * @return mixed
      */

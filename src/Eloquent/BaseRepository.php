@@ -214,6 +214,23 @@ abstract class BaseRepository extends RepositoryAbstract implements RepositoryIn
     }
 
     /**
+     * Execute the query and get the first result or throw an exception.
+     *
+     * @param  array  $columns
+     * @return \Illuminate\Database\Eloquent\Model|static
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function firstOrFail($columns = ['*'])
+    {
+        $results = $this->entity->firstOrFail($columns);
+
+        $this->reset();
+
+        return $results;
+    }
+
+    /**
      * Paginate the given query by 'limit' request parameter
      * @return mixed
      */
@@ -223,6 +240,8 @@ abstract class BaseRepository extends RepositoryAbstract implements RepositoryIn
             config('awesio-repository.smart_paginate.request_parameter'), 
             config('awesio-repository.smart_paginate.default_limit')
         );
+
+        if ($limit === 0) $limit = config('awesio-repository.smart_paginate.default_limit');
 
         $maxLimit = config('awesio-repository.smart_paginate.max_limit');
 
