@@ -11,7 +11,7 @@ Laravel Repository package. Take a look at [contributing.md](contributing.md) to
 Package allows you to filter data based on incoming request parameters:
 
 ```
-https://example.com/news?`title=Title`&`custom=value`&`orderBy=name_desc`
+https://example.com/news?title=Title&custom=value&orderBy=name_desc
 ```
 
 It will automatically apply built-in constraints onto the query as well as any custom scopes and criteria you need:
@@ -96,7 +96,7 @@ class News extends Model
 
 ### Create a Repository
 
-Extend it from AwesIO\Repository\Eloquent\BaseRepository and provide entity() method to return full model class name:
+Extend it from `AwesIO\Repository\Eloquent\BaseRepository` and provide `entity()` method to return full model class name:
 
 ```php
 namespace App;
@@ -335,7 +335,7 @@ public $orderable = ['email'];
 https://example.com/news?orderBy=email_desc&begin=2019-01-24&end=2019-01-26
 ```
 
-**orderBy=email_desc** will order by email in descending order, **orderBy=email** - in ascending
+**orderBy=email_desc** will order by email in descending order, `**orderBy=email**` - in ascending
 
 You can also build your own custom scopes. In your repository override **scope()** method:
 
