@@ -1,10 +1,10 @@
 # Repository
 
-[![Coverage report](http://gitlab.awescode.com/awes-io/repository/badges/master/coverage.svg)](https://www.awes.io/)
-[![Build status](http://gitlab.awescode.com/awes-io/repository/badges/master/build.svg)](https://www.awes.io/)
-[![Composer Ready](https://www.awc.wtf/awes-io/repository/status.svg)](https://www.awes.io/)
-[![Downloads](https://www.awc.wtf/awes-io/repository/downloads.svg)](https://www.awes.io/)
-[![Last version](https://www.awc.wtf/awes-io/repository/version.svg)](https://www.awes.io/) 
+[![Coverage report](https://repo.pkgkit.com/4GBWO/awes-io/repository/badges/master/coverage.svg)](https://www.awes.io/)
+[![Build status](https://repo.pkgkit.com/4GBWO/awes-io/repository/badges/master/build.svg)](https://www.awes.io/)
+[![Composer Ready](https://www.pkgkit.com/4GBWO/awes-io/repository/status.svg)](https://www.awes.io/)
+[![Downloads](https://www.pkgkit.com/4GBWO/awes-io/repository/downloads.svg)](https://www.awes.io/)
+[![Last version](https://www.pkgkit.com/4GBWO/awes-io/repository/version.svg)](https://www.awes.io/) 
 
 Laravel Repository package. Take a look at [contributing.md](contributing.md) to see a to do list.
 
@@ -26,6 +26,16 @@ protected $scopes = [
     // and custom parameter used in your scope
     'custom' => MyScope::class,
 ];
+```
+
+```php
+class MyScope extends ScopeAbstract
+{
+    public function scope($builder, $value, $scope)
+    {
+        return $builder->where($scope, $value)->orWhere(...);
+    }
+}
 ```
 
 Ordering by any field is available:

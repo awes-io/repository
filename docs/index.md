@@ -22,6 +22,16 @@ protected $scopes = [
 ];
 ```
 
+```php
+class MyScope extends ScopeAbstract
+{
+    public function scope($builder, $value, $scope)
+    {
+        return $builder->where($scope, $value)->orWhere(...);
+    }
+}
+```
+
 Ordering by any field is available:
 
 ```php
