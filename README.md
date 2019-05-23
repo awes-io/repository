@@ -11,7 +11,7 @@ Laravel Repository package. Take a look at [contributing.md](contributing.md) to
 Package allows you to filter data based on incoming request parameters:
 
 ```
-https://example.com/news?title=Title&custom=value&orderBy=name_desc
+https://example.com/news?`title=Title`&`custom=value`&`orderBy=name_desc`
 ```
 
 It will automatically apply built-in constraints onto the query as well as any custom scopes and criteria you need:
