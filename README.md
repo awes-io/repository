@@ -8,7 +8,7 @@
 
 Laravel Repository package. Take a look at [contributing.md](contributing.md) to see a to do list.
 
-Package allows you to filter data based on incoming request parameters:
+### Package allows you to filter data based on incoming request parameters:
 
 ```
 https://example.com/news?title=Title&custom=value&orderBy=name_desc
@@ -280,7 +280,7 @@ class NewsController extends BaseController
 
 ### Scope, filter and order by request parameters.
 
-In your repository define which fields can be used to scope your queries by setting **$searchable** property.
+In your repository define which fields can be used to scope your queries by setting `$searchable` property.
 
 ```php
 protected $searchable = [
@@ -325,7 +325,7 @@ protected $scopes = [
 $this->news->scope($request)->get();
 ```
 
-Enable ordering for specific fields by adding **$orderable** property to your model class:
+Enable ordering for specific fields by adding `$orderable` property to your model class:
 
 ```php
 public $orderable = ['email'];
@@ -335,9 +335,9 @@ public $orderable = ['email'];
 https://example.com/news?orderBy=email_desc&begin=2019-01-24&end=2019-01-26
 ```
 
-**orderBy=email_desc** will order by email in descending order, `**orderBy=email**` - in ascending
+`orderBy=email_desc` will order by email in descending order, `orderBy=email` - in ascending
 
-You can also build your own custom scopes. In your repository override **scope()** method:
+You can also build your own custom scopes. In your repository override `scope()` method:
 
 ```php
 public function scope($request)
@@ -352,7 +352,7 @@ public function scope($request)
 }
 ```
 
-Create your **scopes** class and extend **ScopesAbstract**:
+Create your `scopes` class and extend `ScopesAbstract`
 
 ```php
 use AwesIO\Repository\Scopes\ScopesAbstract;
