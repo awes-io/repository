@@ -6,8 +6,46 @@
 [![Downloads](https://www.awc.wtf/awes-io/repository/downloads.svg)](https://www.awes.io/)
 [![Last version](https://www.awc.wtf/awes-io/repository/version.svg)](https://www.awes.io/) 
 
+Laravel Repository package. Take a look at [contributing.md](contributing.md) to see a to do list.
 
-PHP Repository package. Take a look at [contributing.md](contributing.md) to see a to do list.
+Package allows you to filter data based on incoming request parameters:
+
+```
+https://example.com/news?title=Title&custom=value&orderBy=name_desc
+```
+
+It will automatically apply built-in constraints onto the query as well as any custom scopes and criteria you need:
+
+```php
+protected $searchable = [
+    // where 'title' equals 'Title'
+    'title',
+];
+
+protected $scopes = [
+    // and custom parameter used in your scope
+    'custom' => MyScope::class,
+];
+```
+
+Ordering by any field is available:
+
+```php
+protected $scopes = [
+    // orderBy field
+    'orderBy' => OrderByScope::class,
+```
+
+Package can also apply any custom criteria:
+
+```php
+return $this->news->withCriteria([
+    new MyCriteria([
+        'category_id' => '1', 'name' => 'Name'
+    ])
+    ...
+])->get();
+```
 
 ## Installation
 
@@ -74,7 +112,7 @@ class NewsRepository extends BaseRepository
 }
 ```
 
-### Usage
+### Use built-in methods
 
 ```php
 use App\NewsRepository;
@@ -179,6 +217,12 @@ Find model or throw an exception if not found:
 
 ```php
 $this->news->findOrFail($id);
+```
+
+Execute the query and get the first result or throw an exception:
+
+```php
+$this->news->firstOrFail();
 ```
 
 ### Create a Criteria

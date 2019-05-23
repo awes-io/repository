@@ -2,6 +2,45 @@
 
 Repository pattern implementation for Laravel based apps.
 
+Package allows you to filter data based on incoming request parameters:
+
+```
+https://example.com/news?title=Title&custom=value&orderBy=name_desc
+```
+
+It will automatically apply built-in constraints onto the query as well as any custom scopes and criteria you need:
+
+```php
+protected $searchable = [
+    // where 'title' equals 'Title'
+    'title',
+];
+
+protected $scopes = [
+    // and custom parameter used in your scope
+    'custom' => MyScope::class,
+];
+```
+
+Ordering by any field is available:
+
+```php
+protected $scopes = [
+    // orderBy field
+    'orderBy' => OrderByScope::class,
+```
+
+Package can also apply any custom criteria:
+
+```php
+return $this->news->withCriteria([
+    new MyCriteria([
+        'category_id' => '1', 'name' => 'Name'
+    ])
+    ...
+])->get();
+```
+
 ## Installation
 
 Via Composer
@@ -67,7 +106,7 @@ class NewsRepository extends BaseRepository
 }
 ```
 
-### Usage
+### Use built-in methods
 
 ```php
 use App\NewsRepository;
@@ -172,6 +211,12 @@ Find model or throw an exception if not found:
 
 ```php
 $this->news->findOrFail($id);
+```
+
+Execute the query and get the first result or throw an exception:
+
+```php
+$this->news->firstOrFail();
 ```
 
 ### Create a Criteria
@@ -279,7 +324,6 @@ Enable ordering for specific fields by adding **$orderable** property to your mo
 ```php
 public $orderable = ['email'];
 ```
-
 
 ```
 https://example.com/news?orderBy=email_desc&begin=2019-01-24&end=2019-01-26
