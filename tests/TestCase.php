@@ -10,7 +10,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * Setup the test environment.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
