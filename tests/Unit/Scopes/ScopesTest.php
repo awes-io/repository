@@ -10,6 +10,32 @@ use AwesIO\Repository\Tests\Stubs\Model;
 class ScopesTest extends TestCase
 {
     /** @test */
+    public function it_scopes_request_by_field()
+    {
+        $request = Request::create(
+            '/',
+            'GET',
+            ['name' => 'name']
+        );
+
+        $scopes = new Scopes($request, ['name' => 'like']);
+
+        factory(Model::class, 5)->create();
+
+        $model = factory(Model::class)->create([
+            'name' => 'name'
+        ]);
+
+        $results = Model::get();
+
+        $this->assertEquals(1, $results->first()->id);
+
+        $results = $scopes->scope(new Model)->get();
+
+        $this->assertEquals($model->id, $results->first()->id);
+    }
+
+    /** @test */
     public function it_scopes_request_by_orderBy()
     {
         $request = Request::create(
