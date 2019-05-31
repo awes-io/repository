@@ -1,99 +1,14 @@
-<p align="center">
-    <a href="https://www.awes.io/?utm_source=github&utm_medium=indigo-layout" target="_blank" rel="noopener noreferrer">
-        <img width="100" src="https://static.awes.io/promo/Logo_sign_color.svg" alt="Awes.io logo">
-    </a>
-</p>
+# Repository
 
-<h1 align="center">Repository</h1>
+[![Coverage report](https://repo.pkgkit.com/4GBWO/awes-io/repository/badges/master/coverage.svg)](https://www.awes.io/)
+[![Build status](https://repo.pkgkit.com/4GBWO/awes-io/repository/badges/master/build.svg)](https://www.awes.io/)
+[![Composer Ready](https://www.pkgkit.com/4GBWO/awes-io/repository/status.svg)](https://www.awes.io/)
+[![Downloads](https://www.pkgkit.com/4GBWO/awes-io/repository/downloads.svg)](https://www.awes.io/)
+[![Last version](https://www.pkgkit.com/4GBWO/awes-io/repository/version.svg)](https://www.awes.io/) 
 
-<p align="center">Implementation of repository pattern for Laravel. The package allows out-of-the-box filtering of data based on parameters in the `request`, and also allows you to quickly integrate the list filters and custom criteria.</p>
+Laravel Repository package. Take a look at [contributing.md](contributing.md) to see a to do list.
 
-<p align="center">
-    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
-        <img src="https://repo.pkgkit.com/4GBWO/awes-io/repository/badges/master/coverage.svg" alt="Coverage report" >
-    </a>
-    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
-        <img src="https://www.pkgkit.com/4GBWO/awes-io/repository/version.svg" alt="Last version" >
-    </a>
-    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
-        <img src="https://repo.pkgkit.com/4GBWO/awes-io/repository/badges/master/build.svg" alt="Build status" >
-    </a>
-    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
-        <img src="https://www.pkgkit.com/4GBWO/awes-io/repository/downloads.svg" alt="Downloads" >
-    </a>
-    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
-        <img src="https://img.shields.io/github/license/awes-io/repository.svg" alt="License" />
-    </a>
-    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
-        <img src="https://www.pkgkit.com/4GBWO/awes-io/repository/status.svg" alt="CDN Ready" /> 
-    </a>
-    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields" target="_blank">
-        <img src="https://static.pkgkit.com/badges/laravel.svg" alt="laravel" />
-    </a>
-    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
-        <img src="https://img.shields.io/github/last-commit/awes-io/repository.svg" alt="Last commit" />
-    </a>
-    <a href="https://github.com/awes-io/awes-io">
-        <img src="https://ga-beacon.appspot.com/UA-134431636-1/awes-io/repository" alt="Analytics" />
-    </a>
-    <a href="https://www.pkgkit.com/?utm_source=github&amp;utm_medium=shields">
-        <img src="https://www.pkgkit.com/badges/hosted.svg" alt="Hosted by Package Kit" />
-    </a>
-    <a href="https://www.patreon.com/join/awesdotio">
-        <img src="https://static.pkgkit.com/badges/patreon.svg" alt="Patreon" />
-    </a>
-</p>
-
-## 
-
-
-## Table of Contents
-
-- <a href="#installation">Installation</a>
-- <a href="#configuration">Configuration</a>
-- <a href="#overview">Overview</a>
-- <a href="#usage">Usage</a>
-    - <a href="#createamodel">Create a Model</a>
-    - <a href="#createarepository">Create a Repository</a>
-    - <a href="#usebuiltinmethods">Use built-in methods</a>
-    - <a href="#createacriteria">Create a Criteria</a>
-    - <a href="#scopefilterandorder">Scope, Filter, and Order</a>
-- <a href="#testing">Testing</a>
-
-## Installation
-
-Via Composer
-
-``` bash
-$ composer require awes-io/repository
-```
-
-The package will automatically register itself.
-
-## Configuration
-
-First publish config:
-
-```bash
-php artisan vendor:publish --provider="AwesIO\Repository\RepositoryServiceProvider" --tag="config"
-```
-
-```php
-// $repository->smartPaginate() related parameters
-'smart_paginate' => [
-    // name of request parameter to take paginate by value from
-    'request_parameter' => 'limit',
-    // default paginate by value
-    'default_limit' => 10,
-    // max paginate by value
-    'max_limit' => 100,
-]
-```
-
-## Overview
-
-
-##### Package allows you to filter data based on incoming request parameters:
+### Package allows you to filter data based on incoming request parameters:
 
 ```
 https://example.com/news?title=Title&custom=value&orderBy=name_desc
@@ -129,7 +44,6 @@ Ordering by any field is available:
 protected $scopes = [
     // orderBy field
     'orderBy' => OrderByScope::class,
-];
 ```
 
 Package can also apply any custom criteria:
@@ -141,6 +55,36 @@ return $this->news->withCriteria([
     ])
     ...
 ])->get();
+```
+
+## Installation
+
+Via Composer
+
+``` bash
+$ composer require awes-io/repository
+```
+
+The package will automatically register itself.
+
+## Configuration
+
+First publish config:
+
+```bash
+php artisan vendor:publish --provider="AwesIO\Repository\RepositoryServiceProvider" --tag="config"
+```
+
+```php
+// $repository->smartPaginate() related parameters
+'smart_paginate' => [
+    // name of request parameter to take paginate by value from
+    'request_parameter' => 'limit',
+    // default paginate by value
+    'default_limit' => 10,
+    // max paginate by value
+    'max_limit' => 100,
+]
 ```
 
 ## Usage
@@ -344,7 +288,7 @@ class NewsController extends BaseController
 }
 ```
 
-### Scope, Filter and Order
+### Scope, filter and order by request parameters.
 
 In your repository define which fields can be used to scope your queries by setting `$searchable` property.
 
@@ -448,8 +392,6 @@ class MyScope extends ScopeAbstract
 
 ## Testing
 
-The coverage of the package is <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields"><img src="https://repo.pkgkit.com/4GBWO/awes-io/repository/badges/master/coverage.svg" alt="Coverage report"></a>.
-                                   
 You can run the tests with:
 
 ```bash
@@ -460,11 +402,27 @@ composer test
 
 Please see [contributing.md](contributing.md) for details and a todolist.
 
+## Security
+
+If you discover any security related issues, please email :author_email instead of using the issue tracker.
+
 ## Credits
 
-- [Galymzhan Begimov](https://github.com/begimov)
-- [All Contributors](contributing.md)
+- [:author_name][link-author]
+- [All Contributors][link-contributors]
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT)
+GNU General Public License v3.0. Please see the [license file](license.md) for more information.
+
+[ico-version]: https://img.shields.io/packagist/v/awes-io/repository.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/awes-io/repository.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/awes-io/repository/master.svg?style=flat-square
+[ico-styleci]: https://styleci.io/repos/12345678/shield
+
+[link-packagist]: https://packagist.org/packages/awes-io/repository
+[link-downloads]: https://packagist.org/packages/awes-io/repository
+[link-travis]: https://travis-ci.org/awes-io/repository
+[link-styleci]: https://styleci.io/repos/12345678
+[link-author]: https://github.com/awes-io
+[link-contributors]: ../../contributors]
