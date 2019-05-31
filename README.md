@@ -44,7 +44,10 @@
     </a>
 </p>
 
-## 
+##
+<p align="center">
+    <img src="../.github/IMAGES/repository-cover.png?raw=true" alt="Repository Laravel" />
+</p>
 
 
 ## Table of Contents
