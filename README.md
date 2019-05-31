@@ -46,7 +46,7 @@
 
 ##
 <p align="center">
-    <img src="../.github/IMAGES/repository-cover.png?raw=true" alt="Repository Laravel" />
+    <img src="https://static.awes.io/github/repository-cover.png" alt="Repository Laravel" />
 </p>
 
 
