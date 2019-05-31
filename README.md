@@ -6,7 +6,7 @@
 
 <h1 align="center">Repository</h1>
 
-<p align="center">Implementation of repository pattern for Laravel. The package allows out-of-the-box filtering of data based on parameters in the <b>request</b>, and also allows you to quickly integrate the list filters and custom criteria.</p>
+<p align="center">Repository Pattern in Laravel. The package allows to filter by request out-of-the-box, as well as to integrate customized criteria and any kind of filters.</p>
 
 <p align="center">
     <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
