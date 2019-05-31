@@ -1,8 +1,8 @@
 {
     "name": "awes-io/repository",
-    "description": ":description",
+    "description": "Implementation of repository pattern for Laravel. The package allows out-of-the-box filtering of data based on parameters in the <b>request</b>, and also allows you to quickly integrate the list filters and custom criteria.",
     "type": "library",
-    "license": "GPL-3.0-only",
+    "license": "MIT",
 	"authors": [
 		{
 			"name": "Awescode GmbH",
@@ -20,7 +20,7 @@
 		"email": "support@awescode.de"
 	},
 	"homepage": "https://github.com/awes-io/repository",
-	"keywords": ["Laravel", "Repository"],
+	"keywords": ["Laravel", "Repository", "pattern", "filters", "criteria", "scope", "php"],
     "require": {
         "illuminate/support": "~5"
     },
