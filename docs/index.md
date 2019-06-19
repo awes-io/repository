@@ -1,8 +1,54 @@
-# Laravel Repository package
+<h1 align="center">Repository</h1>
 
-Repository pattern implementation for Laravel based apps.
+<p align="center">Repository Pattern in Laravel. The package allows to filter by request out-of-the-box, as well as to integrate customized criteria and any kind of filters.</p>
 
-### Package allows you to filter data based on incoming request parameters:
+## Table of Contents
+
+- <a href="#installation">Installation</a>
+- <a href="#configuration">Configuration</a>
+- <a href="#overview">Overview</a>
+- <a href="#usage">Usage</a>
+    - <a href="#create-a-model">Create a Model</a>
+    - <a href="#create-a-repository">Create a Repository</a>
+    - <a href="#use-built-in-methods">Use built-in methods</a>
+    - <a href="#create-a-criteria">Create a Criteria</a>
+    - <a href="#scope-filter-and-order">Scope, Filter, and Order</a>
+- <a href="#testing">Testing</a>
+
+## Installation
+
+Via Composer
+
+``` bash
+$ composer require awes-io/repository
+```
+
+The package will automatically register itself.
+
+## Configuration
+
+First publish config:
+
+```bash
+php artisan vendor:publish --provider="AwesIO\Repository\RepositoryServiceProvider" --tag="config"
+```
+
+```php
+// $repository->smartPaginate() related parameters
+'smart_paginate' => [
+    // name of request parameter to take paginate by value from
+    'request_parameter' => 'limit',
+    // default paginate by value
+    'default_limit' => 10,
+    // max paginate by value
+    'max_limit' => 100,
+]
+```
+
+## Overview
+
+
+##### Package allows you to filter data based on incoming request parameters:
 
 ```
 https://example.com/news?title=Title&custom=value&orderBy=name_desc
@@ -38,6 +84,7 @@ Ordering by any field is available:
 protected $scopes = [
     // orderBy field
     'orderBy' => OrderByScope::class,
+];
 ```
 
 Package can also apply any custom criteria:
@@ -49,36 +96,6 @@ return $this->news->withCriteria([
     ])
     ...
 ])->get();
-```
-
-## Installation
-
-Via Composer
-
-``` bash
-$ composer require awes-io/repository
-```
-
-The package will automatically register itself.
-
-## Configuration
-
-First publish config:
-
-```bash
-php artisan vendor:publish --provider="AwesIO\Repository\RepositoryServiceProvider" --tag="config"
-```
-
-```php
-// $repository->smartPaginate() related parameters
-'smart_paginate' => [
-    // name of request parameter to take paginate by value from
-    'request_parameter' => 'limit',
-    // default paginate by value
-    'default_limit' => 10,
-    // max paginate by value
-    'max_limit' => 100,
-]
 ```
 
 ## Usage
@@ -282,7 +299,7 @@ class NewsController extends BaseController
 }
 ```
 
-### Scope, filter and order by request parameters.
+### Scope, Filter and Order
 
 In your repository define which fields can be used to scope your queries by setting `$searchable` property.
 
@@ -386,6 +403,8 @@ class MyScope extends ScopeAbstract
 
 ## Testing
 
+The coverage of the package is <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields"><img src="https://repo.pkgkit.com/4GBWO/awes-io/repository/badges/master/coverage.svg" alt="Coverage report"></a>.
+                                   
 You can run the tests with:
 
 ```bash
