@@ -87,7 +87,7 @@ php artisan vendor:publish --provider="AwesIO\Repository\RepositoryServiceProvid
     // name of request parameter to take paginate by value from
     'request_parameter' => 'limit',
     // default paginate by value
-    'default_limit' => 10,
+    'default_limit' => 15,
     // max paginate by value
     'max_limit' => 100,
 ]
