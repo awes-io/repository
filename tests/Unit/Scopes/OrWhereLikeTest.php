@@ -2,6 +2,7 @@
 
 namespace AwesIO\Repository\Tests\Unit\Scopes;
 
+use Illuminate\Support\Str;
 use AwesIO\Repository\Tests\TestCase;
 use AwesIO\Repository\Tests\Stubs\Model;
 use AwesIO\Repository\Scopes\Clauses\OrWhereLikeScope;
@@ -19,7 +20,7 @@ class OrWhereLikeTest extends TestCase
 
         $results = $scope->scope(
             new Model, 
-            str_after($model->name, $model->name[0]),
+            Str::after($model->name, $model->name[0]),
             'name'
         )->get();
 
@@ -40,13 +41,13 @@ class OrWhereLikeTest extends TestCase
 
         $builder = $scope->scope(
             new Model, 
-            str_after($model1->name, $model1->name[0]),
+            Str::after($model1->name, $model1->name[0]),
             'name'
         );
 
         $results = $scope->scope(
             $builder, 
-            str_after($model2->name, $model2->name[0]),
+            Str::after($model2->name, $model2->name[0]),
             'name'
         )->get();
 

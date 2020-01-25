@@ -379,7 +379,7 @@ class RepositoryTest extends TestCase
 
         $result = $repository->smartPaginate();
 
-        $this->assertEquals(5, $result->perPage());
+        $this->assertEquals(100, $result->perPage());
     }
 
     /** @test */
