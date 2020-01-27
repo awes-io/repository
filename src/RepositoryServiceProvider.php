@@ -2,9 +2,11 @@
 
 namespace AwesIO\Repository;
 
-use AwesIO\Repository\Contracts\Repository as RepositoryContract;
-use AwesIO\Repository\Repository;
 use Illuminate\Support\ServiceProvider;
+use AwesIO\Repository\Commands\RepositoryMakeCommand;
+use AwesIO\Repository\Commands\RepositoryMakeMainCommand;
+use AwesIO\Repository\Commands\RepositoryScopeMakeCommand;
+use AwesIO\Repository\Commands\RepositoryScopesMakeCommand;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -18,6 +20,15 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/awesio-repository.php' => config_path('awesio-repository.php'),
         ], 'config');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                RepositoryMakeMainCommand::class,
+                RepositoryMakeCommand::class,
+                RepositoryScopesMakeCommand::class,
+                RepositoryScopeMakeCommand::class,
+            ]);
+        }
     }
 
     /**

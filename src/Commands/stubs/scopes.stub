@@ -1,0 +1,12 @@
+<?php
+
+namespace DummyNamespace;
+
+use AwesIO\Repository\Scopes\ScopesAbstract;
+
+class DummyScope extends ScopesAbstract
+{
+    protected $scopes = [
+        //'search' => SearchScope::class,
+    ];
+}

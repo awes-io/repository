@@ -1,0 +1,34 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\DummyModel;
+use AwesIO\Repository\Eloquent\BaseRepository;
+use NamespacedDummyScope;
+
+class DummyClass extends BaseRepository
+{
+    /**
+     * The attributes that can be searched by.
+     *
+     * @var array
+     */
+    protected $searchable = [];
+
+    /**
+     * Returns DocDummyModel model's full class name.
+     *
+     * @return string
+     */
+    public function entity()
+    {
+        return DummyModel::class;
+    }
+
+    public function scope($request)
+    {
+        parent::scope($request);
+        $this->entity = (new DummyScope($request))->scope($this->entity);
+        return $this;
+    }
+}
