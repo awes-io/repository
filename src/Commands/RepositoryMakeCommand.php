@@ -52,8 +52,12 @@ class RepositoryMakeCommand extends GeneratorCommand
 
         $scopes = $this->option('scopes');
 
-        return (new Replacer(parent::buildClass($name)))
-            ->replace($model, $scopes);
+        $stub = (new Replacer(parent::buildClass($name)))
+            ->replace($scopes);
+
+        $stub = str_replace('NamespacedDummyModel', $model, $stub);
+
+        return str_replace('DummyModel', last(explode('\\', $model)), $stub);
     }
 
     /**

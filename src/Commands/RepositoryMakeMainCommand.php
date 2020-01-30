@@ -41,9 +41,16 @@ class RepositoryMakeMainCommand extends Command
 
         $this->createRepository();
 
-        $this->createScopes();
+        $scope = $this->option('scope');
 
-        if ($scope = $this->option('scope')) {
+        $this->createScopes(
+            $scope 
+                ? Str::singular($scope) . Str::plural($this->getNameInput()) . 'Scope' 
+                : $scope,
+            Str::camel($scope)
+        );
+
+        if ($scope) {
             $this->createScope($scope);
         }
     }
@@ -63,26 +70,28 @@ class RepositoryMakeMainCommand extends Command
     }
 
     /**
-     * Create a repository.
+     * Create a repository scopes.
      *
      * @return void
      */
-    protected function createScopes()
+    protected function createScopes($scope, $scopeName)
     {
         $this->call('make:repository:scopes', [
             'name' => $this->getNamespacedScopes(),
+            '--scope' => $scope,
+            '--scope_name' => $scopeName,
         ]);
     }
 
     /**
-     * Create a repository.
+     * Create a repository scope.
      *
      * @return void
      */
     protected function createScope($scope)
     {
         $this->call('make:repository:scope', [
-            'name' => $this->getNamespacedScope($scope),
+            'name' => $this->getNamespacedScope($scope)
         ]);
     }
 
@@ -108,8 +117,9 @@ class RepositoryMakeMainCommand extends Command
 
     private function getNamespacedModel()
     {
-        return $this->baseNamespace .'\Models\\' 
-            . Str::singular($this->getNameInput());
+        return implode(
+            '\\', explode('/', trim($this->argument('modelName')))
+        );
     }
 
     private function getNamespacedScopes()

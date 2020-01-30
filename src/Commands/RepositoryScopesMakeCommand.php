@@ -12,7 +12,7 @@ class RepositoryScopesMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:repository:scopes {name}';
+    protected $signature = 'make:repository:scopes {name} {--scope=} {--scope_name=}';
 
     /**
      * The console command description.
@@ -48,8 +48,16 @@ class RepositoryScopesMakeCommand extends GeneratorCommand
      */
     protected function buildClass($name)
     {
-        return (new Replacer(parent::buildClass($name)))
+        $stub = (new Replacer(parent::buildClass($name)))
             ->replace($name);
+
+        if ($scope = $this->option('scope')) {
+            $stub = str_replace('SearchScope', $scope, $stub);
+            $scopeName = $this->option('scope_name');
+            $stub = str_replace('search', $scopeName, $stub);
+        }
+
+        return $stub;
     }
 
     /**

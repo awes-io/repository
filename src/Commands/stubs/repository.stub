@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use App\DummyModel;
+use App\NamespacedDummyModel;
 use AwesIO\Repository\Eloquent\BaseRepository;
 use NamespacedDummyScope;
 
@@ -15,11 +15,6 @@ class DummyClass extends BaseRepository
      */
     protected $searchable = [];
 
-    /**
-     * Returns DocDummyModel model's full class name.
-     *
-     * @return string
-     */
     public function entity()
     {
         return DummyModel::class;
