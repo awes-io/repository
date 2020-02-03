@@ -48,6 +48,8 @@ class RepositoryScopesMakeCommand extends GeneratorCommand
      */
     protected function buildClass($name)
     {
+        $this->type = $this->type . ' ' . $name;
+        
         $stub = (new Replacer(parent::buildClass($name)))
             ->replace($name);
 

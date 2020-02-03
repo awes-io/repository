@@ -48,6 +48,8 @@ class RepositoryMakeCommand extends GeneratorCommand
      */
     protected function buildClass($name)
     {
+        $this->type = $this->type . ' ' . $name;
+        
         $model = $this->option('model');
 
         $scopes = $this->option('scopes');

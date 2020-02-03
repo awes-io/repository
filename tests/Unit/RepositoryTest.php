@@ -374,7 +374,7 @@ class RepositoryTest extends TestCase
         $repository = new Repository;
 
         request()->merge([
-            config('awesio-repository.smart_paginate.request_parameter') => uniqid()
+            config('awesio-repository.smart_paginate.request_parameter') => 'string'
         ]);
 
         $result = $repository->smartPaginate();

@@ -35,8 +35,8 @@ class RepositoryScopeMakeCommand extends GeneratorCommand
      */
     public function handle()
     {
-        if (parent::handle() === false && ! $this->option('force')) {
-            return false;
+        if (parent::handle() === false) {
+            return true;
         }
     }
 
@@ -48,6 +48,8 @@ class RepositoryScopeMakeCommand extends GeneratorCommand
      */
     protected function buildClass($name)
     {
+        $this->type = $this->type . ' ' . $name;
+
         return (new Replacer(parent::buildClass($name)))
             ->replace($name);
     }
