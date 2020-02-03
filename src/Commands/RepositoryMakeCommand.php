@@ -35,8 +35,8 @@ class RepositoryMakeCommand extends GeneratorCommand
      */
     public function handle()
     {
-        if (parent::handle() === false && ! $this->option('force')) {
-            return false;
+        if (parent::handle() === false) {
+            return true;
         }
     }
 
