@@ -13,6 +13,7 @@
     - <a href="#use-built-in-methods">Use built-in methods</a>
     - <a href="#create-a-criteria">Create a Criteria</a>
     - <a href="#scope-filter-and-order">Scope, Filter, and Order</a>
+    - <a href="#artisan-commands">Artisan Commands</a>
 - <a href="#testing">Testing</a>
 
 ## Installation
@@ -400,6 +401,22 @@ class MyScope extends ScopeAbstract
     }
 }
 ```
+
+### Artisan Commands
+
+Package provides useful artisan command:
+
+```bash
+php artisan repository:generate Models/Order --scope=Search
+```
+
+#### It'll generate several classes for ```App\Models\Order```:
+
+Main repository: ```App\Repositories\Orders\OrdersRepository```
+
+Main scopes class: ```App\Repositories\Orders\Scopes\OrdersScopes```
+
+Individual search scope class: ```App\Repositories\Orders\Scopes\SearchOrdersScope```
 
 ## Testing
 
