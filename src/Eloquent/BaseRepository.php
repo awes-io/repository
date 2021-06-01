@@ -234,14 +234,14 @@ abstract class BaseRepository extends RepositoryAbstract implements RepositoryIn
      * Paginate the given query by 'limit' request parameter
      * @return mixed
      */
-    public function smartPaginate()
+    public function smartPaginate($perPage = null)
     {
         $limit = (int) request()->input(
             config('awesio-repository.smart_paginate.request_parameter'), 
             config('awesio-repository.smart_paginate.default_limit')
         );
 
-        if ($limit === 0) $limit = config('awesio-repository.smart_paginate.default_limit');
+        if ($limit === 0) $limit = ($perPage) ?: config('awesio-repository.smart_paginate.default_limit');
 
         $maxLimit = config('awesio-repository.smart_paginate.max_limit');
 
